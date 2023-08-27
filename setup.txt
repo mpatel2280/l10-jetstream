@@ -1,0 +1,44 @@
+
+https://jetstream.laravel.com/installation.html
+
+composer create-project laravel/laravel l10_jetstream
+
+cd l10_jetstream
+
+composer require laravel/jetstream
+
+php artisan jetstream:install livewire --dark
+
+cp .env.example .env 
+
+npm install
+npm run build
+
+-- if database mentioned in .env file does not exists then create it from mysql client app...
+create database l10_jetstream
+
+php artisan migrate
+
+-- which throws an error
+-- SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long; max key length is 1000 bytes (Connection: mysql, SQL: alter table `users` add unique `users_email_unique`(`email`))
+
+-- Fixes
+app\Providers\AppServiceProvider.php
+
+use Illuminate\Support\Facades\Schema;
+Schema::defaultStringLength(191); 
+
+php artisan db:wipe
+php artisan db:seed
+
+npm run build
+
+php artisan serve OR php artisan serve --port=8081
+-- giving error for missing app key then run...
+php artisan key:generate
+
+-- other useful command...
+
+php artisan view:clear
+php artisan config:clear
+php artisan cache:clear
