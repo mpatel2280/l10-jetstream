@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Schema;
 Schema::defaultStringLength(191); 
 
 php artisan db:wipe
+php artisan migrate
 php artisan db:seed
 
 npm run build
